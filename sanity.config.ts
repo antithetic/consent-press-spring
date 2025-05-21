@@ -3,6 +3,14 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
 
+const sharedConfig = {
+  projectId: 'ioq9oqcu',
+  dataset: 'production',
+  plugins: [
+    structureTool(), 
+    visionTool(),
+  ],
+}
 
 export default defineConfig({
   name: 'default',

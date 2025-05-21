@@ -1,11 +1,30 @@
 import { defineField, defineType } from 'sanity'
-import { CircleUser, Link, CircleSmall } from 'lucide-react'
+import { CircleUser, Link, CircleSmall, UserRoundCog, Settings } from 'lucide-react'
 
 export const profileType = defineType({
     name: 'profile',
     title: 'Profile',
     type: 'document',
     icon: CircleUser,
+    groups: [
+        {
+            default: true,
+            name: 'user',
+            title: 'User',
+            icon: UserRoundCog,
+        },
+        {
+            name: 'links',
+            title: 'Links',
+            icon: Link,
+        },
+        {
+            name: 'meta',
+            title: 'Meta',
+            icon: Settings,
+
+        }        
+    ],
     fields: [
     // General profile information
       defineField({
@@ -13,10 +32,15 @@ export const profileType = defineType({
         title: 'Profile Name',
         description: 'To be displayed as the page header.',
         type: 'string',
+        group: 'user',
       }),
       defineField({
         name: 'slug',
         title: 'Slug',
+        group: [
+            'user', 
+            'meta'
+        ],
         description: 'Unique URL where profile will be displayed.',
         type: 'slug',
         options: {
@@ -29,6 +53,7 @@ export const profileType = defineType({
         name: 'profileImage',
         title: 'Profile Image',
         description: 'Upload a profile image for this profile.',
+        group: 'user',
         type: 'image',
         options: {
           hotspot: true,
@@ -48,12 +73,14 @@ export const profileType = defineType({
         name: 'bio',
         title: 'Bio',
         description: 'A short one line bio.',
+        group: 'user',
         type: 'pt-string'
       }),
       
       defineField({
         name: 'pronouns',
         title: 'Pronouns',
+        group: 'user',
         type: 'array',
         of: [
           {
@@ -129,6 +156,10 @@ export const profileType = defineType({
         type: 'array',
         description:
           "Add links to this member's social media profiles and website",
+        group: [ 
+            'user', 
+            'links'
+        ],
         of: [
           {
             type: 'object',

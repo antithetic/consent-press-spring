@@ -8,6 +8,7 @@ import {media} from 'sanity-plugin-media'
 import {seoMetaFields} from 'sanity-plugin-seo'
 import {tags} from 'sanity-plugin-tags'
 import {userSelect} from 'sanity-plugin-user-select-input'
+import { noteField } from 'sanity-plugin-note-field'
 
 import {consentSchemaTypes} from './src/schemaTypes/consent'
 import {filosoSchemaTypes} from './src/schemaTypes/filoso'
@@ -25,6 +26,7 @@ const sharedConfig = {
     imageAssetPickerPlugin(),
     userSelect(),
     tags({}),
+    noteField(),
   ],
 }
 

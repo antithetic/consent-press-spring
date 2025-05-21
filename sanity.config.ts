@@ -1,5 +1,5 @@
 import {visionTool} from '@sanity/vision'
-import {Bone, FlipHorizontal, PocketKnife, ScanHeart} from 'lucide-react'
+import {Bone, Cable, FlipHorizontal, PocketKnife, ScanHeart} from 'lucide-react'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {IconManager} from 'sanity-plugin-icon-manager'
@@ -68,7 +68,7 @@ export default defineConfig([
     name: 'links',
     title: 'Links',
     ...sharedConfig,
-    icon: PocketKnife,
+    icon: Cable,
     plugins: [...sharedConfig.plugins],
     schema: {
       types: linksSchemaTypes,

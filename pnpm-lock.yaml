@@ -32,6 +32,9 @@ importers:
       sanity-plugin-seo:
         specifier: ^1.3.0
         version: 1.3.0(@emotion/is-prop-valid@1.2.2)(@typescript-eslint/eslint-plugin@8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(typescript@5.8.3))(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0))(eslint@9.27.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(sanity@3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0))(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)
+      sanity-plugin-tags:
+        specifier: ^2.1.1
+        version: 2.1.1(@types/react@18.3.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)(sanity@3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0))(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       sanity-plugin-user-select-input:
         specifier: ^2.0.1
         version: 2.0.1(@emotion/is-prop-valid@1.2.2)(@sanity/ui@2.15.18(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(react-dom@18.3.1(react@18.3.1))(react-fast-compare@3.2.2)(react-is@18.3.1)(react@18.3.1)(rxjs@7.8.2)(sanity@3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0))(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -4507,6 +4510,15 @@ packages:
     peerDependencies:
       react: ^18
       sanity: ^3
+
+  sanity-plugin-tags@2.1.1:
+    resolution: {integrity: sha512-gQaBJBrC56JdweGNey0Y3ZnCNekzzQgEibTMeERwuUxRp6gqlaYtQ5DI6w5p5OrrFJSJza3W1PZpc81BkkfMlA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: ^18
+      rxjs: ^7.8.0
+      sanity: ^3
+      styled-components: ^5.3.6 || ^6.0.0
 
   sanity-plugin-user-select-input@2.0.1:
     resolution: {integrity: sha512-EmM6k/KiyBHkjLf0OQmThsITdJioOlGFXFpWy6Hw4GC+OiZOPQBBTeL39+zPsGyNiIwba3NmrRRr2igyrMCR2Q==}
@@ -10552,6 +10564,19 @@ snapshots:
       - react-is
       - styled-components
       - typescript
+
+  sanity-plugin-tags@2.1.1(@types/react@18.3.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)(sanity@3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0))(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
+    dependencies:
+      '@sanity/incompatible-plugin': 1.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-select: 5.10.1(@types/react@18.3.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rxjs: 7.8.2
+      sanity: 3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0)
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react-dom
+      - supports-color
 
   sanity-plugin-user-select-input@2.0.1(@emotion/is-prop-valid@1.2.2)(@sanity/ui@2.15.18(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(react-dom@18.3.1(react@18.3.1))(react-fast-compare@3.2.2)(react-is@18.3.1)(react@18.3.1)(rxjs@7.8.2)(sanity@3.89.0(@emotion/is-prop-valid@1.2.2)(@types/node@22.15.21)(@types/react@18.3.21)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(yaml@2.8.0))(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
     dependencies:

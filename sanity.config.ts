@@ -11,6 +11,7 @@ import {userSelect} from 'sanity-plugin-user-select-input'
 import { noteField } from 'sanity-plugin-note-field'
 import {IconManager} from 'sanity-plugin-icon-manager'
 import {ptString} from 'sanity-plugin-pt-string'
+import { singletonTools } from 'sanity-plugin-singleton-tools'
 
 
 import {consentSchemaTypes} from './src/schemaTypes/consent'
@@ -36,6 +37,7 @@ const sharedConfig = {
       // your optional configuration here
     }),
     ptString(),
+    singletonTools(),
   ],
 }
 

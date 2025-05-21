@@ -15,6 +15,7 @@ import {userSelect} from 'sanity-plugin-user-select-input'
 
 import {consentSchemaTypes} from './src/schemaTypes/consent'
 import {filosoSchemaTypes} from './src/schemaTypes/filoso'
+import { linksSchemaTypes } from './src/schemaTypes/links'
 import {loveSchemaTypes} from './src/schemaTypes/love-hangover'
 import {mirrorSchemaTypes} from './src/schemaTypes/mirror'
 
@@ -60,6 +61,17 @@ export default defineConfig([
     plugins: [...sharedConfig.plugins],
     schema: {
       types: filosoSchemaTypes,
+    },
+    basePath: '/filoso',
+  },
+  {
+    name: 'links',
+    title: 'Links',
+    ...sharedConfig,
+    icon: PocketKnife,
+    plugins: [...sharedConfig.plugins],
+    schema: {
+      types: linksSchemaTypes,
     },
     basePath: '/links',
   },

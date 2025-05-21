@@ -145,7 +145,9 @@ export const profileType = defineType({
                     { title: 'Facebook', value: 'facebook' },
                     { title: 'Twitter', value: 'twitter' },
                     { title: 'TikTok', value: 'tiktok' },
+                    { title: 'GitHub', value: 'github' },
                     { title: 'YouTube', value: 'youtube' },
+                    { title: 'Bluesky', value: 'bluesky' },
                     { title: 'Other', value: 'other' },
                   ],
                   layout: 'dropdown',
@@ -176,6 +178,8 @@ export const profileType = defineType({
                         tiktok: /^https?:\/\/(www\.)?tiktok\.com\/.+/,
                         facebook: /^https?:\/\/(www\.)?facebook\.com\/.+/,
                         youtube: /^https?:\/\/(www\.)?youtube\.com\/.+/,
+                        github: /^https?:\/\/(www\.)?github\.com\/.+/,
+                        bluesky: /^https?:\/\/(www\.)?bsky\.app\/.+/,
                         other: /^https?:\/\/.+/,
                       };
   

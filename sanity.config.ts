@@ -1,5 +1,5 @@
 import {visionTool} from '@sanity/vision'
-import {Bone, FlipHorizontal, PocketKnife, ScanHeart} from 'lucide-react'
+import {Bone, Cable, FlipHorizontal, PocketKnife, ScanHeart} from 'lucide-react'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {IconManager} from 'sanity-plugin-icon-manager'
@@ -13,8 +13,10 @@ import {singletonTools} from 'sanity-plugin-singleton-tools'
 import {tags} from 'sanity-plugin-tags'
 import {userSelect} from 'sanity-plugin-user-select-input'
 
+import {sharedSchemaTypes} from './src/schemaTypes'
 import {consentSchemaTypes} from './src/schemaTypes/consent'
 import {filosoSchemaTypes} from './src/schemaTypes/filoso'
+import {linksSchemaTypes} from './src/schemaTypes/links'
 import {loveSchemaTypes} from './src/schemaTypes/love-hangover'
 import {mirrorSchemaTypes} from './src/schemaTypes/mirror'
 
@@ -48,7 +50,8 @@ export default defineConfig([
     icon: Bone,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: consentSchemaTypes,
+      // Merge shared types with workspace-specific types
+      types: [...sharedSchemaTypes, ...consentSchemaTypes],
     },
     basePath: '/consent',
   },
@@ -59,7 +62,20 @@ export default defineConfig([
     icon: PocketKnife,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: filosoSchemaTypes,
+      // Merge shared types with workspace-specific types
+      types: [...sharedSchemaTypes, ...filosoSchemaTypes],
+    },
+    basePath: '/filoso',
+  },
+  // Same pattern for other workspaces
+  {
+    name: 'links',
+    title: 'Links',
+    ...sharedConfig,
+    icon: Cable,
+    plugins: [...sharedConfig.plugins],
+    schema: {
+      types: [...sharedSchemaTypes, ...linksSchemaTypes],
     },
     basePath: '/links',
   },
@@ -70,7 +86,7 @@ export default defineConfig([
     icon: ScanHeart,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: loveSchemaTypes,
+      types: [...sharedSchemaTypes, ...loveSchemaTypes],
     },
     basePath: '/love',
   },
@@ -81,7 +97,7 @@ export default defineConfig([
     icon: FlipHorizontal,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: mirrorSchemaTypes,
+      types: [...sharedSchemaTypes, ...mirrorSchemaTypes],
     },
     basePath: '/mirror',
   },

@@ -1,1 +1,1 @@
-export const schemaTypes = []
+export const sharedSchemaTypes = []

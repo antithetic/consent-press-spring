@@ -13,9 +13,10 @@ import {singletonTools} from 'sanity-plugin-singleton-tools'
 import {tags} from 'sanity-plugin-tags'
 import {userSelect} from 'sanity-plugin-user-select-input'
 
+import {sharedSchemaTypes} from './src/schemaTypes'
 import {consentSchemaTypes} from './src/schemaTypes/consent'
 import {filosoSchemaTypes} from './src/schemaTypes/filoso'
-import { linksSchemaTypes } from './src/schemaTypes/links'
+import {linksSchemaTypes} from './src/schemaTypes/links'
 import {loveSchemaTypes} from './src/schemaTypes/love-hangover'
 import {mirrorSchemaTypes} from './src/schemaTypes/mirror'
 
@@ -39,6 +40,7 @@ const sharedConfig = {
     ptString(),
     singletonTools(),
   ],
+  schema: sharedSchemaTypes,
 }
 
 export default defineConfig([

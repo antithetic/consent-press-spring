@@ -11,13 +11,13 @@ export const profileType = defineType({
       defineField({
         name: 'name',
         title: 'Profile Name',
-        description: 'To be displayed as the page header',
+        description: 'To be displayed as the page header.',
         type: 'string',
       }),
       defineField({
         name: 'slug',
         title: 'Slug',
-        description: 'Unique URL where profile will be displayed',
+        description: 'Unique URL where profile will be displayed.',
         type: 'slug',
         options: {
           source: 'name',
@@ -28,7 +28,7 @@ export const profileType = defineType({
       defineField({
         name: 'profileImage',
         title: 'Profile Image',
-        description: 'Upload a profile image for this team member',
+        description: 'Upload a profile image for this profile.',
         type: 'image',
         options: {
           hotspot: true,
@@ -47,13 +47,13 @@ export const profileType = defineType({
       defineField({
         name: 'bio',
         title: 'Bio',
-        description: 'A short one line bio',
+        description: 'A short one line bio.',
         type: 'pt-string'
       }),
       defineField({
         name: 'pronouns',
         type: 'array',
-        description: 'Select the pronouns that apply to the artist',
+        description: 'Select the pronouns that apply to profile.',
         of: [
           {
             type: 'object',

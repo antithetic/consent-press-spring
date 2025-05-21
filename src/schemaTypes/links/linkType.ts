@@ -1,27 +1,32 @@
 import {defineField, defineType} from 'sanity'
+import {Link} from 'lucide-react'
 
 export const linkType = defineType({
     name: 'link',
   title: 'Link',
-  type: 'object',
+  type: 'document',
+  icon: Link,
   fields: [
-    {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: Rule => Rule.required()
-    },
-    {
+    defineField({
+        name: 'title',
+        title: 'Title',
+        description: 'Title displayed on profile',
+        type: 'string',
+        validation: (Rule) => Rule.required(),
+    }),
+    defineField({
         name: 'url',
         title: 'URL',
+        description: 'Valid URL for this link',
         type: 'url',
-        validation: Rule => Rule.required()
-      },
-    {
-        name: 'altText',
-        title: 'Alt Text',
-        type: 'string',
-        validation: Rule => Rule.required()
-    },
+        validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+        name: 'description',
+        title: 'Description',
+        description: 'Short description for this link',
+        type: 'text',
+        rows: 2,
+    })
 ]  
 })

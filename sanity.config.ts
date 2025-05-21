@@ -2,9 +2,13 @@ import {visionTool} from '@sanity/vision'
 import {Bone, FlipHorizontal, PocketKnife, ScanHeart} from 'lucide-react'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
+
+// Sanity plugins
 import {imageAssetPickerPlugin} from 'sanity-plugin-image-asset-picker'
 import {media} from 'sanity-plugin-media'
 import {seoMetaFields} from 'sanity-plugin-seo'
+import {userSelect} from 'sanity-plugin-user-select-input'
+import {linkField} from 'sanity-plugin-link-field'
 
 import {consentSchemaTypes} from './src/schemaTypes/consent'
 import {filosoSchemaTypes} from './src/schemaTypes/filoso'
@@ -14,7 +18,7 @@ import {mirrorSchemaTypes} from './src/schemaTypes/mirror'
 const sharedConfig = {
   projectId: 'ioq9oqcu',
   dataset: 'production',
-  plugins: [structureTool(), visionTool(), media(), seoMetaFields(), imageAssetPickerPlugin()],
+  plugins: [structureTool(), visionTool(), media(), seoMetaFields(), imageAssetPickerPlugin(), userSelect(), linkField()],
 }
 
 export default defineConfig([

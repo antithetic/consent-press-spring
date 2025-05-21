@@ -40,7 +40,6 @@ const sharedConfig = {
     ptString(),
     singletonTools(),
   ],
-  schema: sharedSchemaTypes,
 }
 
 export default defineConfig([

@@ -50,7 +50,8 @@ export default defineConfig([
     icon: Bone,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: consentSchemaTypes,
+      // Merge shared types with workspace-specific types
+      types: [...sharedSchemaTypes, ...consentSchemaTypes],
     },
     basePath: '/consent',
   },
@@ -61,10 +62,12 @@ export default defineConfig([
     icon: PocketKnife,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: filosoSchemaTypes,
+      // Merge shared types with workspace-specific types
+      types: [...sharedSchemaTypes, ...filosoSchemaTypes],
     },
     basePath: '/filoso',
   },
+  // Same pattern for other workspaces
   {
     name: 'links',
     title: 'Links',
@@ -72,7 +75,7 @@ export default defineConfig([
     icon: Cable,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: linksSchemaTypes,
+      types: [...sharedSchemaTypes, ...linksSchemaTypes],
     },
     basePath: '/links',
   },
@@ -83,7 +86,7 @@ export default defineConfig([
     icon: ScanHeart,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: loveSchemaTypes,
+      types: [...sharedSchemaTypes, ...loveSchemaTypes],
     },
     basePath: '/love',
   },
@@ -94,7 +97,7 @@ export default defineConfig([
     icon: FlipHorizontal,
     plugins: [...sharedConfig.plugins],
     schema: {
-      types: mirrorSchemaTypes,
+      types: [...sharedSchemaTypes, ...mirrorSchemaTypes],
     },
     basePath: '/mirror',
   },

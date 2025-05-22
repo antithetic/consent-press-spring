@@ -304,7 +304,8 @@ export const eventType = defineType({
       const doorsOpenFormatted = doorsOpen ? `Doors open: ${formatDate(doorsOpen)}` : ''
       const eventEndsFormatted = eventEnds ? `Ends: ${formatDate(eventEnds)}` : ''
 
-      const totalArtists = (headline?.length || 0) + (artists?.length || 0)
+      // const totalArtists = (headline?.length || 0) + (artists?.length || 0)
+      const totalArtists = (headline ? 1 : 0) + (artists?.length || 0)
       const artistText = totalArtists > 1 ? `(${totalArtists} artists)` : ''
 
       const subtitle = [

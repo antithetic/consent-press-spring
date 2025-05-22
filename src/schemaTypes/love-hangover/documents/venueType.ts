@@ -222,8 +222,7 @@ export const venueType = defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'city',
-      media: 'media.0',
+      subtitle: 'address.city',
     },
   },
 })

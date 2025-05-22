@@ -234,12 +234,12 @@ export const eventType = defineType({
       validation: (Rule) =>
         // Rule.custom((value, context) => {
         //   if (!context.document?.isFree && !value) {
-          Rule.custom((value, context) => {
-            if (!context.document?.isFree && (value === undefined || value === null)) {
+        Rule.custom((value, context) => {
+          if (!context.document?.isFree && (value === undefined || value === null)) {
             return 'Cover charge is required for paid events'
           }
           // if (value && (value < 0 || !Number.isFinite(value))) {
-            if (value !== undefined && value !== null && (value <= 0 || !Number.isFinite(value))) {
+          if (value !== undefined && value !== null && (value <= 0 || !Number.isFinite(value))) {
             return 'Cover charge must be a positive number'
           }
           if (value && !/^\d+(\.\d{1,2})?$/.test(value.toString())) {

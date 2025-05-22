@@ -254,12 +254,10 @@ export const memberType = defineType({
       name: 'email',
       title: 'Contact Email',
       validation: (Rule) =>
-        Rule.regex(
-          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          { name: 'email' }
-        ).error('Please enter a valid email address'),
+        Rule.regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {name: 'email'}).error(
+          'Please enter a valid email address',
+        ),
     }),
-
   ],
   // preview
   preview: {

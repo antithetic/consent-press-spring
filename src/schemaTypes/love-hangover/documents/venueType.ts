@@ -24,45 +24,72 @@ export const venueType = defineType({
           'Description should be concise, under 500 characters',
         ),
     }),
-    defineField({
-      name: 'address',
-      type: 'string',
-      description: 'The street address of the venue',
-      validation: (Rule) => Rule.required().error('An address is required'),
-    }),
-    defineField({
-      name: 'city',
-      type: 'string',
-      description: 'The city where the venue is located',
-      validation: (Rule) => Rule.required().error('A city is required'),
-    }),
-    defineField({
-      name: 'zipcode',
-      type: 'string',
-      description: 'The zipcode of the venue',
-      validation: (Rule) => Rule.required().error('A zipcode is required'),
-    }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-      title: 'Slug',
-      description: 'The unique identifier for the venue',
-      options: {
-        source: (doc) => `${doc.name}-${doc.city}`,
-        maxLength: 96,
-      },
-      validation: (Rule) =>
-        Rule.required()
-          .error('A slug is required')
-          .custom((slug, context) => {
-            if (!slug?.current) return true;
-            const pattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-            return (
-              pattern.test(slug.current) ||
-              'Slug can only contain lowercase letters, numbers, and hyphens'
-            );
-          }),
-    }),
+    defineField(
+      {
+        name: 'address',
+        title: 'Address',
+        type: 'object',
+        fields: [
+          {
+            name: 'streetAddress',
+            title: 'Street Address',
+            description: 'The street address of the venue',
+            type: 'string',
+            validation: Rule => Rule.required()
+          },
+          {
+            name: 'city',
+            title: 'City',
+            description: 'The city where the venue is located',
+            type: 'string',
+            validation: Rule => Rule.required()
+          },
+          {
+            name: 'zipCode',
+            title: 'ZIP Code',
+            description: 'The zipcode of the venue',
+            type: 'string',
+          }
+        ]
+      }),
+
+
+      defineField({
+        name: 'slug',
+        type: 'slug',
+        title: 'Slug',
+        description: 'The unique identifier for the venue',
+        options: {
+          source: (doc: any) => {
+            // Check if both name and address.city exist
+            if (doc.name && doc.address?.city) {
+              return `${doc.name}-${doc.address.city}`;
+            }
+            // Fallback to just name if city isn't available yet
+            return doc.name || '';
+          },
+          maxLength: 96,
+          slugify: input => input
+            .toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/[^\w\-]+/g, '') // Remove non-word chars except hyphens
+            .replace(/\-\-+/g, '-') // Replace multiple hyphens with single hyphen
+            .replace(/^-+/, '') // Remove leading hyphens
+            .replace(/-+$/, '') // Remove trailing hyphens
+        },
+        validation: (Rule) =>
+          Rule.required()
+            .error('A slug is required')
+            .custom((slug, context) => {
+              if (!slug?.current) return true;
+              const pattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+              return (
+                pattern.test(slug.current) ||
+                'Slug can only contain lowercase letters, numbers, and hyphens'
+              );
+            }),
+      }),
+
     defineField({
       name: 'socialLinks',
       title: 'Social Links',

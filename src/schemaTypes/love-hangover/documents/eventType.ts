@@ -17,6 +17,7 @@ export const eventType = defineType({
       type: 'string',
       description: 'The name of the event',
       group: 'editorial',
+      validation: (Rule) => Rule.required().error('Event name is required'),
     }),
     defineField({
       name: 'subtitle',

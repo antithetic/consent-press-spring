@@ -1,5 +1,5 @@
-import { Link, MapPin } from 'lucide-react';
-import { defineField, defineType } from 'sanity';
+import {Link, MapPin} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export const venueType = defineType({
   name: 'venue',
@@ -10,86 +10,82 @@ export const venueType = defineType({
     defineField({
       name: 'name',
       type: 'string',
-      description: 'Name of the venue', 
+      description: 'Name of the venue',
       validation: (Rule) => Rule.required().error('A venue name is required'),
     }),
 
     defineField({
       name: 'description',
       type: 'text',
-      rows: 2, 
-      description:
-        'A brief description of the venue, its atmosphere, and any notable features',
+      rows: 2,
+      description: 'A brief description of the venue, its atmosphere, and any notable features',
       validation: (Rule) =>
-        Rule.max(500).warning(
-          'Description should be concise, under 500 characters',
-        ),
+        Rule.max(500).warning('Description should be concise, under 500 characters'),
     }),
-    defineField(
-      {
-        name: 'address',
-        title: 'Address',
-        type: 'object',
-        fields: [
-          {
-            name: 'streetAddress',
-            title: 'Street Address',
-            description: 'The street address of the venue',
-            type: 'string',
-            validation: Rule => Rule.required()
-          },
-          {
-            name: 'city',
-            title: 'City',
-            description: 'The city where the venue is located',
-            type: 'string',
-            validation: Rule => Rule.required()
-          },
-          {
-            name: 'zipCode',
-            title: 'ZIP Code',
-            description: 'The zipcode of the venue',
-            type: 'string',
+    defineField({
+      name: 'address',
+      title: 'Address',
+      type: 'object',
+      fields: [
+        {
+          name: 'streetAddress',
+          title: 'Street Address',
+          description: 'The street address of the venue',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'city',
+          title: 'City',
+          description: 'The city where the venue is located',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: 'zipCode',
+          title: 'ZIP Code',
+          description: 'The zipcode of the venue',
+          type: 'string',
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'The unique identifier for the venue',
+      options: {
+        source: (doc: any) => {
+          // Check if both name and address.city exist
+          if (doc.name && doc.address?.city) {
+            return `${doc.name}-${doc.address.city}`
           }
-        ]
-      }),
-
-
-      defineField({
-        name: 'slug',
-        type: 'slug',
-        title: 'Slug',
-        description: 'The unique identifier for the venue',
-        options: {
-          source: (doc: any) => {
-            // Check if both name and address.city exist
-            if (doc.name && doc.address?.city) {
-              return `${doc.name}-${doc.address.city}`;
-            }
-            // Fallback to just name if city isn't available yet
-            return doc.name || '';
-          },
-          maxLength: 96,
-          slugify: input => input
+          // Fallback to just name if city isn't available yet
+          return doc.name || ''
+        },
+        maxLength: 96,
+        slugify: (input) =>
+          input
             .toLowerCase()
             .replace(/\s+/g, '-') // Replace spaces with hyphens
-            .replace(/[^\w\-]+/g, '') // Remove non-word chars except hyphens
-            .replace(/\-\-+/g, '-') // Replace multiple hyphens with single hyphen
+            .replace(/[^\w-]+/g, '') // Remove non-word chars except hyphens
+            .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
             .replace(/^-+/, '') // Remove leading hyphens
-            .replace(/-+$/, '') // Remove trailing hyphens
-        },
-        validation: (Rule) =>
-          Rule.required()
-            .error('A slug is required')
-            .custom((slug, context) => {
-              if (!slug?.current) return true;
-              const pattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-              return (
-                pattern.test(slug.current) ||
-                'Slug can only contain lowercase letters, numbers, and hyphens'
-              );
-            }),
-      }),
+            .replace(/-+$/, ''), // Remove trailing hyphens
+      },
+      validation: (Rule) =>
+        Rule.required()
+          .error('A slug is required')
+          .custom((slug, context) => {
+            if (!slug?.current) return true
+            const pattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+            return (
+              pattern.test(slug.current) ||
+              'Slug can only contain lowercase letters, numbers, and hyphens'
+            )
+          }),
+    }),
 
     defineField({
       name: 'socialLinks',
@@ -106,19 +102,18 @@ export const venueType = defineType({
               type: 'string',
               options: {
                 list: [
-                  { title: 'Website', value: 'website' },
-                  { title: 'Instagram', value: 'instagram' },
-                  { title: 'Twitter', value: 'twitter' },
-                  { title: 'TikTok', value: 'tiktok' },
-                  { title: 'Facebook', value: 'facebook' },
-                  { title: 'YouTube', value: 'youtube' },
+                  {title: 'Website', value: 'website'},
+                  {title: 'Instagram', value: 'instagram'},
+                  {title: 'Twitter', value: 'twitter'},
+                  {title: 'TikTok', value: 'tiktok'},
+                  {title: 'Facebook', value: 'facebook'},
+                  {title: 'YouTube', value: 'youtube'},
                   // { title: 'LinkedIn', value: 'linkedin' },
-                  { title: 'Other', value: 'other' },
+                  {title: 'Other', value: 'other'},
                 ],
                 layout: 'dropdown',
               },
-              validation: (Rule) =>
-                Rule.required().error('Please select a platform'),
+              validation: (Rule) => Rule.required().error('Please select a platform'),
             },
             {
               name: 'url',
@@ -129,13 +124,13 @@ export const venueType = defineType({
                 Rule.required()
                   .error('A valid URL is required')
                   .custom((value, context) => {
-                    if (!value || typeof value !== 'string') return true;
+                    if (!value || typeof value !== 'string') return true
                     const parent = context.parent as {
-                      platform: string;
-                    } | null;
-                    if (!parent) return true;
+                      platform: string
+                    } | null
+                    if (!parent) return true
 
-                    const platform = parent.platform;
+                    const platform = parent.platform
                     const urlPatterns = {
                       website: /^https?:\/\/.+/,
                       instagram: /^https?:\/\/(www\.)?instagram\.com\/.+/,
@@ -144,56 +139,51 @@ export const venueType = defineType({
                       facebook: /^https?:\/\/(www\.)?facebook\.com\/.+/,
                       youtube: /^https?:\/\/(www\.)?youtube\.com\/.+/,
                       other: /^https?:\/\/.+/,
-                    };
+                    }
 
                     if (
                       platform &&
                       platform !== 'other' &&
-                      !urlPatterns[platform as keyof typeof urlPatterns].test(
-                        value,
-                      )
+                      !urlPatterns[platform as keyof typeof urlPatterns].test(value)
                     ) {
-                      return `Please enter a valid ${platform} URL`;
+                      return `Please enter a valid ${platform} URL`
                     }
 
-                    return true;
+                    return true
                   }),
             },
             {
               name: 'name',
               title: 'Website Name',
               type: 'string',
-              description:
-                'Name of the website (required for Website and Other platforms)',
-              hidden: ({ parent }) =>
-                !['website', 'other'].includes(parent?.platform),
+              description: 'Name of the website (required for Website and Other platforms)',
+              hidden: ({parent}) => !['website', 'other'].includes(parent?.platform),
               validation: (Rule) =>
                 Rule.custom((value, context) => {
-                  const parent = context.parent as { platform: string } | null;
+                  const parent = context.parent as {platform: string} | null
                   if (
                     parent?.platform &&
                     ['website', 'other'].includes(parent.platform) &&
                     !value
                   ) {
-                    return 'Please enter a name for this website';
+                    return 'Please enter a name for this website'
                   }
-                  return true;
+                  return true
                 }),
             },
             {
               name: 'customPlatform',
               title: 'Custom Platform Name',
               type: 'string',
-              description:
-                'Enter the name of the platform if you selected "Other"',
-              hidden: ({ parent }) => parent?.platform !== 'other',
+              description: 'Enter the name of the platform if you selected "Other"',
+              hidden: ({parent}) => parent?.platform !== 'other',
               validation: (Rule) =>
                 Rule.custom((value, context) => {
-                  const parent = context.parent as { platform?: string };
+                  const parent = context.parent as {platform?: string}
                   if (parent?.platform === 'other' && !value) {
-                    return 'Please enter the platform name';
+                    return 'Please enter the platform name'
                   }
-                  return true;
+                  return true
                 }),
             },
           ],
@@ -203,17 +193,13 @@ export const venueType = defineType({
               name: 'name',
               url: 'url',
             },
-            prepare({ platform, name, url }) {
-              const title = ['website', 'other'].includes(platform)
-                ? name
-                : platform;
+            prepare({platform, name, url}) {
+              const title = ['website', 'other'].includes(platform) ? name : platform
               return {
-                title: title
-                  ? title.charAt(0).toUpperCase() + title.slice(1)
-                  : 'Untitled',
+                title: title ? title.charAt(0).toUpperCase() + title.slice(1) : 'Untitled',
                 subtitle: url,
                 media: Link,
-              };
+              }
             },
           },
         },
@@ -240,4 +226,4 @@ export const venueType = defineType({
       media: 'media.0',
     },
   },
-});
+})

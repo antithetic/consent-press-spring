@@ -10,6 +10,7 @@ export const venueType = defineType({
     defineField({
       name: 'name',
       type: 'string',
+      description: 'Name of the venue', 
       validation: (Rule) => Rule.required().error('A venue name is required'),
     }),
 

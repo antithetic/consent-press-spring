@@ -9,11 +9,10 @@ import {media} from 'sanity-plugin-media'
 import {noteField} from 'sanity-plugin-note-field'
 import {ptString} from 'sanity-plugin-pt-string'
 import {seoMetaFields} from 'sanity-plugin-seo'
+import {simplerColorInput} from 'sanity-plugin-simpler-color-input'
 import {singletonTools} from 'sanity-plugin-singleton-tools'
 import {tags} from 'sanity-plugin-tags'
 import {userSelect} from 'sanity-plugin-user-select-input'
-import { simplerColorInput } from 'sanity-plugin-simpler-color-input'
-
 
 import {sharedSchemaTypes} from './src/schemaTypes'
 import {consentSchemaTypes} from './src/schemaTypes/consent'

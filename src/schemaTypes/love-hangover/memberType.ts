@@ -21,6 +21,13 @@ export const memberType = defineType({
             validation: (e) => e.required(),
             
         }),
+        defineField({
+          name: 'role',
+          title: 'Role',
+          description: "This team member's role",
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
 
         // pronouns
         defineField({
@@ -129,8 +136,7 @@ export const memberType = defineType({
                         { title: 'LinkedIn', value: 'linkedin' },
                         { title: 'Instagram', value: 'instagram' },
                         { title: 'Facebook', value: 'facebook' },
-                        // { title: 'Twitter', value: 'twitter' },
-                        { title: 'X', value: 'x' },
+                        { title: 'Twitter/X', value: 'twitter' },
                         { title: 'TikTok', value: 'tiktok' },
                         { title: 'YouTube', value: 'youtube' },
                         { title: 'GitHub', value: 'github' },
@@ -164,8 +170,7 @@ export const memberType = defineType({
                           const urlPatterns = {
                             website: /^https?:\/\/.+/,
                             instagram: /^https?:\/\/(www\.)?instagram\.com\/.+/,
-                            // twitter: /^https?:\/\/(www\.)?twitter\.com\/.+/,
-                            x: /^https?:\/\/(www\.)?x\.com\/.+/,
+                            twitter: /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/.+/,
                             tiktok: /^https?:\/\/(www\.)?tiktok\.com\/.+/,
                             facebook: /^https?:\/\/(www\.)?facebook\.com\/.+/,
                             youtube: /^https?:\/\/(www\.)?youtube\.com\/.+/,
@@ -236,8 +241,10 @@ export const memberType = defineType({
                   },
                   prepare({ platform, name, url }) {
                     const title = ['website', 'other'].includes(platform)
-                      ? name
-                      : platform;
+  ? name
+  : platform === 'twitter' 
+    ? 'Twitter/X' 
+    : platform;
                     return {
                       title: title
                         ? title.charAt(0).toUpperCase() + title.slice(1)
@@ -258,4 +265,25 @@ export const memberType = defineType({
             title: "Contact Email",
         }),
     ],
+    // preview
+    preview: {
+      select: {
+        title: 'name',
+        subtitle: 'role',
+        pronouns: 'pronouns',
+      },
+      prepare({ title, subtitle, pronouns }) {
+        const pronounText = pronouns?.length
+          ? pronouns
+              .map((p: { type: string; customPronouns?: string }) =>
+                p.type === 'other' ? p.customPronouns : p.type,
+              )
+              .join(', ')
+          : '';
+        return {
+          title,
+          subtitle: `${subtitle}${pronounText ? ` (${pronounText})` : ''}`,
+        };
+      },
+    },
 })

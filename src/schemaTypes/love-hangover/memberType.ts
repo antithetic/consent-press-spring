@@ -1,5 +1,5 @@
 import { defineType, defineField } from 'sanity'
-import {ScanEye, CircleSmall} from 'lucide-react'
+import {ScanEye, CircleSmall, Link} from 'lucide-react'
 
 export const memberType = defineType({
     name: 'member',
@@ -108,11 +108,148 @@ export const memberType = defineType({
               }),
             ],
           }),
-        defineField({ 
-            type: "string", 
-            name: "Website", 
-            title: "Website" 
-        }),
+          // social links
+          defineField({
+            name: 'socialLinks',
+            title: 'Social Links',
+            type: 'array',
+            description:
+              "Add links to this member's social media profiles and website",
+            of: [
+              {
+                type: 'object',
+                fields: [
+                  {
+                    name: 'platform',
+                    title: 'Platform',
+                    type: 'string',
+                    options: {
+                      list: [
+                        { title: 'Website', value: 'website' },
+                        { title: 'LinkedIn', value: 'linkedin' },
+                        { title: 'Instagram', value: 'instagram' },
+                        { title: 'Facebook', value: 'facebook' },
+                        { title: 'Twitter', value: 'twitter' },
+                        { title: 'TikTok', value: 'tiktok' },
+                        { title: 'YouTube', value: 'youtube' },
+                        { title: 'GitHub', value: 'github' },
+                        { title: 'Bluesky', value: 'bluesky' },
+                        { title: 'Soundcloud', value: 'soundcloud' },
+                        { title: 'Mixcloud', value: 'mixcloud' },
+                        { title: 'Spotify', value: 'spotify' },
+                        { title: 'Other', value: 'other' },
+                      ],
+                      layout: 'dropdown',
+                    },
+                    validation: (Rule) =>
+                      Rule.required().error('Please select a platform'),
+                  },
+                  {
+                    name: 'url',
+                    title: 'URL',
+                    type: 'url',
+                    description: 'Full URL to the social media profile or website',
+                    validation: (Rule) =>
+                      Rule.required()
+                        .error('A valid URL is required')
+                        .custom((value, context) => {
+                          if (!value || typeof value !== 'string') return true;
+                          const parent = context.parent as {
+                            platform: string;
+                          } | null;
+                          if (!parent) return true;
+      
+                          const platform = parent.platform;
+                          const urlPatterns = {
+                            website: /^https?:\/\/.+/,
+                            instagram: /^https?:\/\/(www\.)?instagram\.com\/.+/,
+                            twitter: /^https?:\/\/(www\.)?twitter\.com\/.+/,
+                            tiktok: /^https?:\/\/(www\.)?tiktok\.com\/.+/,
+                            facebook: /^https?:\/\/(www\.)?facebook\.com\/.+/,
+                            youtube: /^https?:\/\/(www\.)?youtube\.com\/.+/,
+                            github: /^https?:\/\/(www\.)?github\.com\/.+/,
+                            bluesky: /^https?:\/\/(www\.)?bsky\.app\/.+/,
+                            soundcloud: /^https?:\/\/(www\.)?soundcloud\.com\/.+/,
+                            mixcloud: /^https?:\/\/(www\.)?mixcloud\.com\/.+/,
+                            spotify: /^https?:\/\/(open\.)?spotify\.com\/.+/,
+                            other: /^https?:\/\/.+/,
+                          };
+      
+                          if (
+                            platform &&
+                            platform !== 'other' &&
+                            !urlPatterns[platform as keyof typeof urlPatterns].test(
+                              value,
+                            )
+                          ) {
+                            return `Please enter a valid ${platform} URL`;
+                          }
+      
+                          return true;
+                        }),
+                  },
+                  {
+                    name: 'name',
+                    title: 'Website Name',
+                    type: 'string',
+                    description:
+                      'Name of the website (required for Website and Other platforms)',
+                    hidden: ({ parent }) =>
+                      !['website', 'other'].includes(parent?.platform),
+                    validation: (Rule) =>
+                      Rule.custom((value, context) => {
+                        const parent = context.parent as { platform: string } | null;
+                        if (
+                          parent?.platform &&
+                          ['website', 'other'].includes(parent.platform) &&
+                          !value
+                        ) {
+                          return 'Please enter a name for this website';
+                        }
+                        return true;
+                      }),
+                  },
+                  {
+                    name: 'customPlatform',
+                    title: 'Custom Platform Name',
+                    type: 'string',
+                    description:
+                      'Enter the name of the platform if you selected "Other"',
+                    hidden: ({ parent }) => parent?.platform !== 'other',
+                    validation: (Rule) =>
+                      Rule.custom((value, context) => {
+                        const parent = context.parent as { platform?: string };
+                        if (parent?.platform === 'other' && !value) {
+                          return 'Please enter the platform name';
+                        }
+                        return true;
+                      }),
+                  },
+                ],
+                preview: {
+                  select: {
+                    platform: 'platform',
+                    name: 'name',
+                    url: 'url',
+                  },
+                  prepare({ platform, name, url }) {
+                    const title = ['website', 'other'].includes(platform)
+                      ? name
+                      : platform;
+                    return {
+                      title: title
+                        ? title.charAt(0).toUpperCase() + title.slice(1)
+                        : 'Untitled',
+                      subtitle: url,
+                      media: Link,
+                    };
+                  },
+                },
+              },
+            ],
+          }),
+          
+          // email
         defineField({
             type: "string",
             name: "ContactEmail",

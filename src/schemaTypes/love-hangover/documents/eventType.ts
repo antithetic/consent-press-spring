@@ -229,14 +229,17 @@ export const eventType = defineType({
       title: 'Cover Charge',
       type: 'number',
       group: 'details',
-      description: 'The amount of money charged for entry to the exhibition',
+      description: 'The amount of money charged for entry to the event',
       hidden: ({document}) => document?.isFree === true,
       validation: (Rule) =>
-        Rule.custom((value, context) => {
-          if (!context.document?.isFree && !value) {
+        // Rule.custom((value, context) => {
+        //   if (!context.document?.isFree && !value) {
+          Rule.custom((value, context) => {
+            if (!context.document?.isFree && (value === undefined || value === null)) {
             return 'Cover charge is required for paid events'
           }
-          if (value && (value < 0 || !Number.isFinite(value))) {
+          // if (value && (value < 0 || !Number.isFinite(value))) {
+            if (value !== undefined && value !== null && (value <= 0 || !Number.isFinite(value))) {
             return 'Cover charge must be a positive number'
           }
           if (value && !/^\d+(\.\d{1,2})?$/.test(value.toString())) {

@@ -1,5 +1,5 @@
-import { CalendarDays } from 'lucide-react';
-import { defineField, defineType } from 'sanity';
+import {CalendarDays} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export const eventType = defineType({
   name: 'event',
@@ -7,9 +7,9 @@ export const eventType = defineType({
   type: 'document',
   icon: CalendarDays,
   groups: [
-    { name: 'editorial', title: 'Editorial', default: true },
-    { name: 'details', title: 'Details' },
-    { name: 'metadata', title: 'Metadata' },
+    {name: 'editorial', title: 'Editorial', default: true},
+    {name: 'details', title: 'Details'},
+    {name: 'metadata', title: 'Metadata'},
   ],
   fields: [
     defineField({
@@ -32,14 +32,7 @@ export const eventType = defineType({
       group: 'details',
       description: 'Specify the type of this event',
       options: {
-        list: [
-          'love hangover',
-          'community',
-          'pop-up',
-          'visual arts',
-          'workshop',
-          'other',
-        ],
+        list: ['love hangover', 'community', 'pop-up', 'visual arts', 'workshop', 'other'],
         layout: 'radio',
       },
       validation: (Rule) => Rule.required(),
@@ -50,13 +43,13 @@ export const eventType = defineType({
       type: 'string',
       group: 'details',
       description: 'Please specify the type of event',
-      hidden: ({ document }) => document?.eventType !== 'other',
+      hidden: ({document}) => document?.eventType !== 'other',
       validation: (Rule) =>
         Rule.custom((field, context) => {
           if (context.document?.eventType === 'other' && !field) {
-            return 'Please specify the event type';
+            return 'Please specify the event type'
           }
-          return true;
+          return true
         }),
     }),
     defineField({
@@ -75,7 +68,7 @@ export const eventType = defineType({
       type: 'url',
       group: 'details',
       description: 'Link to the virtual event (e.g., Zoom, Google Meet, etc.)',
-      hidden: ({ document }) => document?.venueType === 'in-person',
+      hidden: ({document}) => document?.venueType === 'in-person',
     }),
     defineField({
       name: 'virtualEventInfo',
@@ -84,12 +77,12 @@ export const eventType = defineType({
       of: [
         {
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{title: 'Normal', value: 'normal'}],
           marks: {
             decorators: [
-              { title: 'Bold', value: 'strong' },
-              { title: 'Italic', value: 'em' },
-              { title: 'Underline', value: 'underline' },
+              {title: 'Bold', value: 'strong'},
+              {title: 'Italic', value: 'em'},
+              {title: 'Underline', value: 'underline'},
             ],
             annotations: [],
           },
@@ -99,7 +92,7 @@ export const eventType = defineType({
       group: 'details',
       description:
         'Additional information about the virtual component (e.g., streaming details, how to join)',
-      hidden: ({ document }) => document?.venueType === 'in-person',
+      hidden: ({document}) => document?.venueType === 'in-person',
     }),
     defineField({
       name: 'date',
@@ -108,9 +101,7 @@ export const eventType = defineType({
       group: 'details',
       description: 'The date and time of the event',
       validation: (Rule) =>
-        Rule.required().error(
-          'Required to generate a event page on the website',
-        ),
+        Rule.required().error('Required to generate a event page on the website'),
     }),
     defineField({
       name: 'doorsOpen',
@@ -129,35 +120,33 @@ export const eventType = defineType({
       name: 'venue',
       type: 'reference',
       description: 'Select the venue for this event',
-      to: [{ type: 'venue' }],
+      to: [{type: 'venue'}],
       group: 'details',
-      hidden: ({ document }) => document?.venueType === 'virtual',
+      hidden: ({document}) => document?.venueType === 'virtual',
       validation: (Rule) =>
         Rule.custom((value, context) => {
           if (value && context?.document?.venueType === 'virtual') {
-            return 'Only in-person or hybrid events can have a venue';
+            return 'Only in-person or hybrid events can have a venue'
           }
-          return true;
+          return true
         }),
     }),
     defineField({
       name: 'artists',
       type: 'array',
       description: 'Select the artists for this event',
-      of: [{ type: 'reference', to: [{ type: 'artist' }] }],
+      of: [{type: 'reference', to: [{type: 'artist'}]}],
       group: 'details',
       validation: (Rule) =>
         Rule.custom((value, context) => {
-          const headline = context.document?.headline as { _ref: string };
+          const headline = context.document?.headline as {_ref: string}
           if (
             headline &&
-            (value as { _ref: string }[])?.some(
-              (artist) => artist._ref === headline._ref,
-            )
+            (value as {_ref: string}[])?.some((artist) => artist._ref === headline._ref)
           ) {
-            return 'Regular artists cannot include the headline artist';
+            return 'Regular artists cannot include the headline artist'
           }
-          return true;
+          return true
         }),
     }),
     defineField({
@@ -165,16 +154,15 @@ export const eventType = defineType({
       type: 'reference',
       title: 'Headline Artist',
       description: 'Select the headline artist for this event, if any',
-      to: [{ type: 'artist' }],
+      to: [{type: 'artist'}],
       group: 'details',
       validation: (Rule) =>
         Rule.custom((value, context) => {
-          const artists =
-            (context.document?.artists as { _ref: string }[]) || [];
+          const artists = (context.document?.artists as {_ref: string}[]) || []
           if (value && artists.some((artist) => artist._ref === value._ref)) {
-            return 'Headline artist cannot be in the regular artists list';
+            return 'Headline artist cannot be in the regular artists list'
           }
-          return true;
+          return true
         }),
     }),
     defineField({
@@ -189,7 +177,7 @@ export const eventType = defineType({
           title: 'Alternative text',
           description: 'Important for SEO and accessibility',
           validation: (Rule) => Rule.required().error('Alt text is required'),
-          hidden: ({ parent }) => !parent?.asset,
+          hidden: ({parent}) => !parent?.asset,
         }),
       ],
     }),
@@ -197,10 +185,10 @@ export const eventType = defineType({
       name: 'details',
       type: 'array',
       description: 'Add details about the event',
-      of: [{ type: 'block' }],
+      of: [{type: 'block'}],
       group: 'editorial',
     }),
-    
+
     defineField({
       name: 'eventTags',
       title: 'Event Tags',
@@ -209,17 +197,16 @@ export const eventType = defineType({
       group: 'metadata',
       options: {
         allowCreate: true,
-      }
+      },
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       description: 'How this event will be referenced on the website',
       group: 'metadata',
-      options: { source: 'name' },
-      validation: (Rule) =>
-        Rule.required().error('Required to generate a page on the website'),
-      hidden: ({ document }) => !document?.name,
+      options: {source: 'name'},
+      validation: (Rule) => Rule.required().error('Required to generate a page on the website'),
+      hidden: ({document}) => !document?.name,
     }),
     defineField({
       name: 'tickets',
@@ -235,29 +222,29 @@ export const eventType = defineType({
       initialValue: false,
       group: 'details',
     }),
-    
+
     defineField({
       name: 'coverCharge',
       title: 'Cover Charge',
       type: 'number',
       group: 'details',
       description: 'The amount of money charged for entry to the exhibition',
-      hidden: ({ document }) => document?.isFree === true,
+      hidden: ({document}) => document?.isFree === true,
       validation: (Rule) =>
         Rule.custom((value, context) => {
           if (!context.document?.isFree && !value) {
-            return 'Cover charge is required for paid events';
+            return 'Cover charge is required for paid events'
           }
           if (value && (value < 0 || !Number.isFinite(value))) {
-            return 'Cover charge must be a positive number';
+            return 'Cover charge must be a positive number'
           }
           if (value && !/^\d+(\.\d{1,2})?$/.test(value.toString())) {
-            return 'Cover charge must be a valid dollar amount (up to 2 decimal places)';
+            return 'Cover charge must be a valid dollar amount (up to 2 decimal places)'
           }
-          return true;
+          return true
         }),
     }),
-    
+
     defineField({
       name: 'additionalImages',
       title: 'Additional Images',
@@ -287,51 +274,38 @@ export const eventType = defineType({
       eventEnds: 'eventEnds',
       image: 'image',
     },
-    prepare({
-      name,
-      venue,
-      headline,
-      artists,
-      date,
-      doorsOpen,
-      eventEnds,
-      image,
-    }) {
-      const nameFormatted = name || 'Untitled event';
+    prepare({name, venue, headline, artists, date, doorsOpen, eventEnds, image}) {
+      const nameFormatted = name || 'Untitled event'
 
       const getOrdinal = (n: number) => {
-        const s = ['th', 'st', 'nd', 'rd'];
-        const v = n % 100;
-        return n + (s[(v - 20) % 10] || s[v] || s[0]);
-      };
+        const s = ['th', 'st', 'nd', 'rd']
+        const v = n % 100
+        return n + (s[(v - 20) % 10] || s[v] || s[0])
+      }
 
       const formatDate = (dateString: string) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        const month = date.toLocaleDateString('en-US', { month: 'long' });
-        const day = getOrdinal(date.getDate());
-        const year = date.getFullYear();
+        if (!dateString) return ''
+        const date = new Date(dateString)
+        const month = date.toLocaleDateString('en-US', {month: 'long'})
+        const day = getOrdinal(date.getDate())
+        const year = date.getFullYear()
         const time = date
           .toLocaleTimeString('en-US', {
             hour: 'numeric',
             minute: '2-digit',
             hour12: true,
           })
-          .toLowerCase();
+          .toLowerCase()
 
-        return `${month} ${day}, ${year} ${time}`;
-      };
+        return `${month} ${day}, ${year} ${time}`
+      }
 
-      const dateFormatted = date ? formatDate(date) : 'No date set';
-      const doorsOpenFormatted = doorsOpen
-        ? `Doors open: ${formatDate(doorsOpen)}`
-        : '';
-      const eventEndsFormatted = eventEnds
-        ? `Ends: ${formatDate(eventEnds)}`
-        : '';
+      const dateFormatted = date ? formatDate(date) : 'No date set'
+      const doorsOpenFormatted = doorsOpen ? `Doors open: ${formatDate(doorsOpen)}` : ''
+      const eventEndsFormatted = eventEnds ? `Ends: ${formatDate(eventEnds)}` : ''
 
-      const totalArtists = (headline?.length || 0) + (artists?.length || 0);
-      const artistText = totalArtists > 1 ? `(${totalArtists} artists)` : '';
+      const totalArtists = (headline?.length || 0) + (artists?.length || 0)
+      const artistText = totalArtists > 1 ? `(${totalArtists} artists)` : ''
 
       const subtitle = [
         dateFormatted,
@@ -340,13 +314,13 @@ export const eventType = defineType({
         venue ? `at ${venue}` : '',
       ]
         .filter(Boolean)
-        .join(' | ');
+        .join(' | ')
 
       return {
         title: artistText ? `${nameFormatted} ${artistText}` : nameFormatted,
         subtitle,
         media: image || CalendarDays,
-      };
+      }
     },
   },
-});
+})

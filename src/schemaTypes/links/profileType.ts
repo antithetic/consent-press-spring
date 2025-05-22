@@ -32,6 +32,7 @@ export const profileType = defineType({
       description: 'To be displayed as the page header.',
       type: 'string',
       group: 'user',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',

@@ -6,11 +6,24 @@ export const linkType = defineType({
   title: 'Link',
   type: 'document',
   icon: Link,
+  groups: [
+    {
+        default: true,
+        name: 'link',
+        title: 'Link',
+    },
+    {
+        name: 'style',
+        title: 'Style Settings',
+    }
+  ],
   fields: [
+    //  Basic Link info
     defineField({
         name: 'title',
         title: 'Title',
         description: 'Title displayed on profile',
+        group: 'link',
         type: 'string',
         validation: (Rule) => Rule.required(),
     }),
@@ -18,6 +31,7 @@ export const linkType = defineType({
         name: 'url',
         title: 'URL',
         description: 'Valid URL for this link',
+        group: 'link',
         type: 'url',
         validation: (Rule) => Rule.required(),
     }),
@@ -25,8 +39,11 @@ export const linkType = defineType({
         name: 'description',
         title: 'Description',
         description: 'Short description for this link',
+        group: 'link',
         type: 'text',
         rows: 2,
+        validation: (Rule) => Rule.required(),
     })
+    // Customization for link
 ]  
 })

@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {Link} from 'lucide-react'
+import {Link, Palette} from 'lucide-react'
 
 export const linkType = defineType({
     name: 'link',
@@ -10,10 +10,12 @@ export const linkType = defineType({
     {
         name: 'link',
         title: 'Link',
+        icon: Link,
     },
     {
         name: 'style',
         title: 'Style Settings',
+        icon: Palette,
     }
   ],
   fields: [
@@ -43,12 +45,29 @@ export const linkType = defineType({
         rows: 2,
         validation: (Rule) => Rule.required(),
     }),
+    defineField({
+        name: 'linkTags',
+        title: 'Link Tags',
+        description: 'Tags for this link',
+        type: 'tags',
+        options: {
+            allowCreate: true,   
+        }
+    }),
     // Customization for link
     defineField({
         name: 'backgroundColor',
         title: 'Background Color',
         description: 'Select custom background color',
+        group: 'style',
         type: 'simplerColor',
+    }),
+    defineField({
+        name: 'backgroundImage',
+        title: 'Background Image',
+        description: 'Add a background image for this link',
+        group: 'style',
+        type: 'image',
     })
 ]  
 })

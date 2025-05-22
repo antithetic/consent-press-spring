@@ -1,3 +1,3 @@
 import {memberType} from './memberType'
 
-export const loveSchemaTypes = [ memberType ]
+export const loveSchemaTypes = [memberType]

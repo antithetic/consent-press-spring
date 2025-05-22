@@ -33,16 +33,9 @@ export const eventType = defineType({
       description: 'Specify the type of this event',
       options: {
         list: [
-          'artist talk',
+          'love hangover',
           'community',
-          'culture',
-          'exhibition',
-          'literature',
-          'mixed media',
-          'performance',
           'pop-up',
-          'reading',
-          'sound',
           'visual arts',
           'workshop',
           'other',

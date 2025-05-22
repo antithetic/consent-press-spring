@@ -8,7 +8,6 @@ export const linkType = defineType({
   icon: Link,
   groups: [
     {
-        default: true,
         name: 'link',
         title: 'Link',
     },
@@ -43,7 +42,13 @@ export const linkType = defineType({
         type: 'text',
         rows: 2,
         validation: (Rule) => Rule.required(),
-    })
+    }),
     // Customization for link
+    defineField({
+        name: 'backgroundColor',
+        title: 'Background Color',
+        description: 'Select custom background color',
+        type: 'simplerColor',
+    })
 ]  
 })

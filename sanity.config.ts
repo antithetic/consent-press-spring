@@ -12,6 +12,8 @@ import {seoMetaFields} from 'sanity-plugin-seo'
 import {singletonTools} from 'sanity-plugin-singleton-tools'
 import {tags} from 'sanity-plugin-tags'
 import {userSelect} from 'sanity-plugin-user-select-input'
+import { simplerColorInput } from 'sanity-plugin-simpler-color-input'
+
 
 import {sharedSchemaTypes} from './src/schemaTypes'
 import {consentSchemaTypes} from './src/schemaTypes/consent'
@@ -39,6 +41,7 @@ const sharedConfig = {
     }),
     ptString(),
     singletonTools(),
+    simplerColorInput(),
   ],
 }
 

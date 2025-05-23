@@ -1,6 +1,7 @@
 import {CalendarDays} from 'lucide-react'
 import {defineField, defineType} from 'sanity'
 
+
 export const eventType = defineType({
   name: 'event',
   title: 'Event',
